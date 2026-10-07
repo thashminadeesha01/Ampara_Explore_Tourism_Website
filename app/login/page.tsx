@@ -458,15 +458,15 @@ export default function LoginPage() {
             © 2024 Ampara Regional Discovery Project. 25 km Radial Heritage & Wildlife Portal.
           </div>
           <div className="flex items-center gap-5 font-semibold text-slate-600">
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-[#0084d1] transition-colors">
+            <Link href="/privacy-policy" className="hover:text-[#0084d1] transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-[#0084d1] transition-colors">
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-[#0084d1] transition-colors">
               Terms of Service
-            </a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-[#0084d1] transition-colors">
+            </Link>
+            <Link href="/cultural-guidelines" className="hover:text-[#0084d1] transition-colors">
               Cultural Guidelines
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

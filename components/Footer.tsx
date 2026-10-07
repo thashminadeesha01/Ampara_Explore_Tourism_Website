@@ -65,8 +65,13 @@ export default function Footer() {
 
         </div>
 
-        <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col md:flex-row items-center justify-between gap-4">
           <p>{t("copyright")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-semibold text-slate-400 text-xs">
+            <a href="/privacy-policy" className="hover:text-sky-300 transition-colors">Privacy Policy</a>
+            <a href="/terms-of-service" className="hover:text-sky-300 transition-colors">Terms of Service</a>
+            <a href="/cultural-guidelines" className="hover:text-sky-300 transition-colors">Cultural Guidelines</a>
+          </div>
           <p className="flex items-center gap-1 text-slate-400">
             Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for explorers in Sri Lanka
           </p>
