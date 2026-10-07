@@ -23,7 +23,7 @@ import {
 export default function LoginPage() {
   // State switcher: "default" | "error"
   const [viewState, setViewState] = useState<"default" | "error">("default");
-  
+
   // Form values
   const [email, setEmail] = useState(
     viewState === "default" ? "kasun@amparaexplore.lk" : "kasun-invalid@"
@@ -53,11 +53,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#f3f6fa] flex flex-col justify-between font-sans text-slate-800 antialiased selection:bg-[#0284c7] selection:text-white">
-      
+
       {/* 1. Header Bar */}
       <header className="w-full bg-white border-b border-slate-200/80 px-4 sm:px-8 py-3.5 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          
+
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-full bg-[#0084d1] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
@@ -78,6 +78,13 @@ export default function LoginPage() {
               <span>Back to Explore</span>
             </Link>
 
+            <Link
+              href="/register"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0084d1] hover:text-[#006699] transition-colors px-2 py-1"
+            >
+              New Explorer? Register
+            </Link>
+
             {/* User Avatar Circle */}
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#006699] text-white flex items-center justify-center font-bold text-xs ring-2 ring-sky-100 shadow-xs">
               <span className="sr-only">User Profile</span>
@@ -92,18 +99,17 @@ export default function LoginPage() {
 
       {/* 2. Main Body Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex flex-col justify-center">
-        
+
         {/* State Switcher Pill at Top */}
         <div className="flex justify-center sm:justify-end mb-4 sm:mb-6">
           <div className="inline-flex items-center bg-white/90 backdrop-blur-md p-1 rounded-full border border-slate-200/90 shadow-xs">
             <button
               type="button"
               onClick={() => handleStateToggle("default")}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                viewState === "default"
-                  ? "bg-slate-100 text-[#006699] shadow-2xs"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${viewState === "default"
+                ? "bg-slate-100 text-[#006699] shadow-2xs"
+                : "text-slate-500 hover:text-slate-800"
+                }`}
             >
               <span className={`w-2 h-2 rounded-full ${viewState === "default" ? "bg-[#0084d1]" : "bg-transparent border border-slate-400"}`} />
               <span>Default State</span>
@@ -112,11 +118,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleStateToggle("error")}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                viewState === "error"
-                  ? "bg-red-50 text-red-600 shadow-2xs"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${viewState === "error"
+                ? "bg-red-50 text-red-600 shadow-2xs"
+                : "text-slate-500 hover:text-slate-800"
+                }`}
             >
               <span className={`w-2 h-2 rounded-full ${viewState === "error" ? "bg-red-500" : "bg-transparent border border-slate-400"}`} />
               <span>Error State</span>
@@ -126,10 +131,10 @@ export default function LoginPage() {
 
         {/* 2-Column Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          
+
           {/* LEFT SIDE: Visual Showcase Card */}
           <div className="lg:col-span-7 relative rounded-[28px] overflow-hidden min-h-[520px] lg:min-h-[640px] flex flex-col justify-between p-6 sm:p-8 shadow-xl border border-slate-200/60 group">
-            
+
             {/* Background Image */}
             <Image
               src="/images/login-bg.jpg"
@@ -145,7 +150,7 @@ export default function LoginPage() {
 
             {/* Top Bar Pills inside the Image Card */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-2.5">
-              
+
               {/* Left Pill: Discovery Horizon */}
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900/40 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider">
                 <Search className="w-3.5 h-3.5 text-white/90" />
@@ -178,7 +183,7 @@ export default function LoginPage() {
             {/* Bottom Overlay Card: Curated Ecological Circuit */}
             <div className="relative z-10 bg-slate-900/75 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/15 text-white shadow-2xl">
               <div className="grid grid-cols-12 gap-3 items-center">
-                
+
                 {/* Circuit Info */}
                 <div className="col-span-7 flex items-center gap-3">
                   <div className="relative w-10 h-10 rounded-xl bg-[#0084d1] flex items-center justify-center shrink-0 shadow-md">
@@ -224,10 +229,10 @@ export default function LoginPage() {
 
           {/* RIGHT SIDE: Authentication Form Card */}
           <div className="lg:col-span-5 flex flex-col justify-center">
-            
+
             {/* White Form Card */}
             <div className="bg-white rounded-[28px] p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-900/5">
-              
+
               {/* Card Header with Brand + 25KM Secure Badge */}
               <div className="flex items-start justify-between gap-2 mb-6">
                 <div className="flex items-center gap-2.5">
@@ -261,7 +266,7 @@ export default function LoginPage() {
 
               {/* Form Elements */}
               <form onSubmit={handleSubmit} className="space-y-4">
-                
+
                 {/* Email Field */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
@@ -283,11 +288,10 @@ export default function LoginPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="kasun@amparaexplore.lk"
-                      className={`w-full bg-[#f8fafc] text-slate-900 text-xs sm:text-sm font-medium rounded-xl pl-10 pr-3.5 py-3 border transition-all focus:outline-none ${
-                        viewState === "error"
-                          ? "border-red-400 ring-2 ring-red-100 bg-red-50/20"
-                          : "border-slate-200 focus:border-[#0084d1] focus:ring-3 focus:ring-sky-100 focus:bg-white"
-                      }`}
+                      className={`w-full bg-[#f8fafc] text-slate-900 text-xs sm:text-sm font-medium rounded-xl pl-10 pr-3.5 py-3 border transition-all focus:outline-none ${viewState === "error"
+                        ? "border-red-400 ring-2 ring-red-100 bg-red-50/20"
+                        : "border-slate-200 focus:border-[#0084d1] focus:ring-3 focus:ring-sky-100 focus:bg-white"
+                        }`}
                     />
                   </div>
 
@@ -305,13 +309,12 @@ export default function LoginPage() {
                     <label className="text-xs font-bold text-slate-800">
                       Password
                     </label>
-                    <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-xs font-bold text-[#0084d1] hover:text-[#006699] transition-colors"
+                    <Link
+                      href="/forgot-password"
+                      className="text-xs font-bold text-[#0084d1] hover:text-[#006699] hover:underline transition-colors"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="relative">
@@ -324,11 +327,10 @@ export default function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••••••••••••••"
-                      className={`w-full bg-[#f8fafc] text-slate-900 text-xs sm:text-sm font-medium rounded-xl pl-10 pr-10 py-3 border transition-all focus:outline-none ${
-                        viewState === "error"
-                          ? "border-red-400 ring-2 ring-red-100 bg-red-50/20"
-                          : "border-slate-200 focus:border-[#0084d1] focus:ring-3 focus:ring-sky-100 focus:bg-white"
-                      }`}
+                      className={`w-full bg-[#f8fafc] text-slate-900 text-xs sm:text-sm font-medium rounded-xl pl-10 pr-10 py-3 border transition-all focus:outline-none ${viewState === "error"
+                        ? "border-red-400 ring-2 ring-red-100 bg-red-50/20"
+                        : "border-slate-200 focus:border-[#0084d1] focus:ring-3 focus:ring-sky-100 focus:bg-white"
+                        }`}
                     />
                     <button
                       type="button"
@@ -384,7 +386,7 @@ export default function LoginPage() {
 
               {/* Social Buttons (Google & Sri Lanka Pass) */}
               <div className="grid grid-cols-2 gap-3">
-                
+
                 {/* Google Button */}
                 <button
                   type="button"
@@ -427,13 +429,12 @@ export default function LoginPage() {
               {/* Bottom Sign up Link */}
               <div className="text-center mt-6 text-xs text-slate-600">
                 <span>Don&apos;t have an account? </span>
-                <a
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
+                <Link
+                  href="/register"
                   className="font-bold text-[#0084d1] hover:underline"
                 >
                   Create an Explorer ID
-                </a>
+                </Link>
               </div>
 
             </div>

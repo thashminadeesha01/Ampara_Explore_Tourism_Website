@@ -91,6 +91,17 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 className="w-full bg-transparent text-xs sm:text-sm font-medium focus:outline-none"
               />
             </div>
+            {!isRegister && (
+              <div className="flex justify-end pt-1">
+                <a
+                  href="/forgot-password"
+                  onClick={onClose}
+                  className="text-xs font-semibold text-[#0284c7] hover:underline"
+                >
+                  Forgot password?
+                </a>
+              </div>
+            )}
           </div>
 
           <button
