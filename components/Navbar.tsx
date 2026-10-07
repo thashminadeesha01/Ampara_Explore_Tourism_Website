@@ -30,12 +30,16 @@ export default function Navbar({
 
   const handleNavClick = (id: string) => {
     if (id === "plan") {
-      onOpenPlan();
+      window.location.href = "/plan";
     } else {
       setActiveTab(id);
-      const element = document.getElementById(id === "home" ? "hero" : id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+      if (window.location.pathname !== "/") {
+        window.location.href = id === "home" ? "/" : `/#${id}`;
+      } else {
+        const element = document.getElementById(id === "home" ? "hero" : id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
     }
     setMobileMenuOpen(false);
