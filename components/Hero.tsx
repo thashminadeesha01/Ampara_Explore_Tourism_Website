@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Search, Compass, MapPin, Target, ArrowRight, Star } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface HeroProps {
   searchQuery: string;
@@ -24,6 +25,7 @@ export default function Hero({
   onMapClick,
 }: HeroProps) {
   const [showRadiusDropdown, setShowRadiusDropdown] = useState(false);
+  const { t } = useLanguage();
 
   const popularTags = [
     "Senanayake Samudraya",
@@ -68,19 +70,24 @@ export default function Hero({
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-slate-200/80 shadow-xs mb-6 animate-fadeIn">
           <span className="w-2.5 h-2.5 rounded-full bg-[#0284c7] animate-pulse" />
           <span className="text-xs font-bold text-slate-800 tracking-wide">
-            Eastern Province, Sri Lanka <span className="text-slate-400 mx-1">•</span> 25 km Discovery Zone
+            {t("heroZonePill")}
           </span>
         </div>
 
         {/* Hero Title */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.1] mb-5 drop-shadow-xs">
-          Discover <span className="text-[#0084d1] text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#0ea5e9]">Ampara</span>
+          {t("heroTitleDiscover")}{" "}
+          <span className="text-[#0084d1] text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#0ea5e9]">
+            {t("heroTitleCity")}
+          </span>
         </h1>
 
         {/* Hero Subtitle */}
         <p className="text-sm sm:text-base md:text-lg text-slate-800 font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] mb-8">
-          Explore pristine reservoirs, sacred centuries-old stupas, and roaming wild elephant herds
-          <span className="block sm:inline font-semibold text-slate-900"> —all nestled within a crisp 25 km radial horizon.</span>
+          {t("heroSubtitle")}
+          <span className="block sm:inline font-semibold text-slate-900">
+            {t("heroSubtitleSuffix")}
+          </span>
         </p>
 
         {/* Main Search Input Form */}
@@ -94,7 +101,7 @@ export default function Hero({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search places to visit, temples, wildlife..."
+              placeholder={t("searchPlaceholder")}
               className="w-full bg-transparent text-slate-800 placeholder-slate-400 font-medium text-xs sm:text-sm focus:outline-none px-1"
             />
 
@@ -106,7 +113,7 @@ export default function Hero({
                 className="shrink-0 hidden sm:flex items-center gap-1.5 bg-sky-50 hover:bg-sky-100 text-[#0284c7] border border-sky-200/80 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer"
               >
                 <Target className="w-3.5 h-3.5" />
-                <span>Within {selectedRadius} km</span>
+                <span>{t("withinRadius")} {selectedRadius} km</span>
               </button>
 
               {/* Radius Dropdown */}
@@ -125,7 +132,7 @@ export default function Hero({
                         selectedRadius === km ? "bg-sky-50 text-[#0284c7]" : "text-slate-700 hover:bg-slate-50"
                       }`}
                     >
-                      <span>Within {km} km</span>
+                      <span>{t("withinRadius")} {km} km</span>
                       {selectedRadius === km && <span className="text-xs">✓</span>}
                     </button>
                   ))}
@@ -138,7 +145,7 @@ export default function Hero({
               type="submit"
               className="shrink-0 bg-[#006699] hover:bg-[#0284c7] text-white px-5 sm:px-6 py-2.5 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>Search</span>
+              <span>{t("searchButton")}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
@@ -146,7 +153,7 @@ export default function Hero({
 
         {/* Popular Tags */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs mb-8">
-          <span className="font-bold text-slate-700">Popular:</span>
+          <span className="font-bold text-slate-700">{t("popularLabel")}</span>
           {popularTags.map((tag) => (
             <button
               key={tag}
@@ -164,7 +171,7 @@ export default function Hero({
             onClick={onExploreClick}
             className="w-full sm:w-auto bg-[#006699] hover:bg-[#0275a8] text-white px-7 py-3.5 rounded-full font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-sky-950/20 hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-0.5"
           >
-            <span>Explore Attractions</span>
+            <span>{t("ctaExplore")}</span>
             <Compass className="w-5 h-5" />
           </button>
 
@@ -173,7 +180,7 @@ export default function Hero({
             className="w-full sm:w-auto bg-white/85 hover:bg-white text-slate-800 hover:text-[#006699] border border-slate-200/90 backdrop-blur-md px-7 py-3.5 rounded-full font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all cursor-pointer transform hover:-translate-y-0.5"
           >
             <MapPin className="w-5 h-5 text-[#0284c7]" />
-            <span>View Radial Map</span>
+            <span>{t("ctaMap")}</span>
           </button>
         </div>
       </div>
@@ -185,30 +192,30 @@ export default function Hero({
           {/* Card 1: 40+ Attractions */}
           <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 text-center border border-slate-200/80 shadow-md hover:shadow-lg transition-all group hover:-translate-y-1">
             <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#006699] tracking-tight group-hover:scale-105 transition-transform">
-              40+
+              {t("stat1Number")}
             </div>
             <div className="text-xs sm:text-sm font-semibold text-slate-600 mt-1">
-              Attractions Indexed
+              {t("stat1Label")}
             </div>
           </div>
 
           {/* Card 2: 25 km Radius */}
           <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 text-center border border-slate-200/80 shadow-md hover:shadow-lg transition-all group hover:-translate-y-1">
             <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#006699] tracking-tight group-hover:scale-105 transition-transform">
-              25 km
+              {t("stat2Number")}
             </div>
             <div className="text-xs sm:text-sm font-semibold text-slate-600 mt-1">
-              Focused Radius
+              {t("stat2Label")}
             </div>
           </div>
 
           {/* Card 3: 1-Day Plans */}
           <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 text-center border border-slate-200/80 shadow-md hover:shadow-lg transition-all group hover:-translate-y-1">
             <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#006699] tracking-tight group-hover:scale-105 transition-transform">
-              1-Day
+              {t("stat3Number")}
             </div>
             <div className="text-xs sm:text-sm font-semibold text-slate-600 mt-1">
-              Smart Sequence Plans
+              {t("stat3Label")}
             </div>
           </div>
 
@@ -219,7 +226,7 @@ export default function Hero({
               <Star className="w-6 h-6 fill-amber-400 text-amber-400 inline-block" />
             </div>
             <div className="text-xs sm:text-sm font-semibold text-slate-600 mt-1">
-              Explorer Satisfaction
+              {t("stat4Label")}
             </div>
           </div>
 
@@ -228,4 +235,5 @@ export default function Hero({
     </section>
   );
 }
+
 

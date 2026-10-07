@@ -2,6 +2,7 @@
 
 import React from "react";
 import { interestCategories } from "@/data/amparaData";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BrowseByInterestProps {
   selectedCategory: string | null;
@@ -12,6 +13,20 @@ export default function BrowseByInterest({
   selectedCategory,
   onSelectCategory,
 }: BrowseByInterestProps) {
+  const { t } = useLanguage();
+
+  const getCategoryTranslation = (title: string) => {
+    const keyMap: Record<string, string> = {
+      Nature: "catNature",
+      Historical: "catHistorical",
+      Religious: "catReligious",
+      Beaches: "catBeaches",
+      Waterfalls: "catWaterfalls",
+      Wildlife: "catWildlife",
+      Cultural: "catCultural",
+    };
+    return keyMap[title] ? t(keyMap[title]) : title;
+  };
 
   // Custom icon renderer matching the exact icons from the design
   const renderCategoryIcon = (id: string, color: string) => {
@@ -86,11 +101,11 @@ export default function BrowseByInterest({
             TAILORED NAVIGATION
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Browse by Interest
+            {t("browseInterestTitle")}
           </h2>
         </div>
         <p className="text-sm text-slate-600 max-w-md md:text-right leading-relaxed">
-          Find curated destinations and ecological sanctuaries aligned with your travel mood.
+          {t("browseInterestSubtitle")}
         </p>
       </div>
 
@@ -98,6 +113,7 @@ export default function BrowseByInterest({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3.5 sm:gap-4">
         {interestCategories.map((cat) => {
           const isSelected = selectedCategory === cat.title;
+          const translatedTitle = getCategoryTranslation(cat.title);
           return (
             <button
               key={cat.id}
@@ -118,7 +134,7 @@ export default function BrowseByInterest({
 
               {/* Title */}
               <span className="font-bold text-slate-900 text-sm mb-0.5 group-hover:text-[#0284c7] transition-colors">
-                {cat.title}
+                {translatedTitle}
               </span>
 
               {/* Place Count */}
@@ -133,7 +149,7 @@ export default function BrowseByInterest({
       {/* Active Filter Clear indicator if a category is picked */}
       {selectedCategory && (
         <div className="mt-4 flex items-center justify-between bg-sky-50 border border-sky-200 rounded-xl px-4 py-2 text-xs text-sky-800 font-medium animate-fadeIn">
-          <span>Filtering attractions by: <strong className="font-bold text-[#0284c7]">{selectedCategory}</strong></span>
+          <span>Filtering attractions by: <strong className="font-bold text-[#0284c7]">{getCategoryTranslation(selectedCategory)}</strong></span>
           <button
             onClick={() => onSelectCategory(null)}
             className="text-[#0284c7] hover:text-[#0369a1] font-bold underline cursor-pointer"
@@ -145,4 +161,5 @@ export default function BrowseByInterest({
     </section>
   );
 }
+
 

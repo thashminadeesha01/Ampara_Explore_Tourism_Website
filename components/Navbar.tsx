@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, Check } from "lucide-react";
+import { useLanguage, Language } from "@/context/LanguageContext";
 
 interface NavbarProps {
   activeTab: string;
@@ -20,12 +21,14 @@ export default function Navbar({
   planCount,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const navItems = [
-    { id: "home", label: "Home" },
-    { id: "explore", label: "Explore" },
-    { id: "map", label: "Map" },
-    { id: "plan", label: "My Visit Plan", hasBadge: true },
+    { id: "home", label: t("navHome") },
+    { id: "explore", label: t("navExplore") },
+    { id: "map", label: t("navMap") },
+    { id: "plan", label: t("navPlan"), hasBadge: true },
   ];
 
   const handleNavClick = (id: string) => {
@@ -47,6 +50,14 @@ export default function Navbar({
     setMobileMenuOpen(false);
   };
 
+  const languages: { code: Language; label: string; flag: string }[] = [
+    { code: "en", label: "English (EN)", flag: "🇬🇧" },
+    { code: "si", label: "සිංහල (SI)", flag: "🇱🇰" },
+    { code: "ta", label: "தமிழ் (TA)", flag: "🇱🇰" },
+  ];
+
+  const currentLangObj = languages.find((l) => l.code === language) || languages[0];
+
   return (
     <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-3 pb-2 transition-all duration-300">
       <div className="max-w-7xl mx-auto">
@@ -60,11 +71,11 @@ export default function Navbar({
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
                 <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-[#0284c7] transition-colors">
-                  Ampara Explore
+                  {t("brandTitle")}
                 </span>
               </div>
               <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#0284c7] uppercase border border-sky-300/60 bg-sky-50/80 px-2 py-0.5 rounded-full w-fit mt-0.5">
-                25KM RADIAL HORIZON
+                {t("radialHorizon")}
               </span>
             </div>
           </button>
@@ -94,13 +105,55 @@ export default function Navbar({
             })}
           </nav>
 
-          {/* User Section */}
-          <div className="flex items-center gap-3">
+          {/* User Section & Language Selector */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            
+            {/* Language Selector Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowLangDropdown(!showLangDropdown)}
+                className="flex items-center gap-1.5 bg-slate-100/80 hover:bg-slate-200 text-slate-700 border border-slate-200/90 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer"
+                title="Select Language"
+              >
+                <Globe className="w-3.5 h-3.5 text-[#0284c7]" />
+                <span className="uppercase">{language}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {showLangDropdown && (
+                <div className="absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 min-w-[150px] animate-fadeIn">
+                  <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-3 py-1">
+                    Language / භාෂාව
+                  </div>
+                  {languages.map((l) => (
+                    <button
+                      key={l.code}
+                      type="button"
+                      onClick={() => {
+                        setLanguage(l.code);
+                        setShowLangDropdown(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-between cursor-pointer transition-colors ${
+                        language === l.code ? "bg-sky-50 text-[#0284c7]" : "text-slate-700 hover:bg-slate-100"
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <span>{l.flag}</span>
+                        <span>{l.label}</span>
+                      </span>
+                      {language === l.code && <Check className="w-3.5 h-3.5" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a
               href="/login"
               className="hidden sm:inline-block text-sm font-semibold text-[#0284c7] hover:text-[#0369a1] hover:underline cursor-pointer transition-colors px-2 py-1"
             >
-              Login / Register
+              {t("navLogin")}
             </a>
 
             {/* Profile Avatar */}

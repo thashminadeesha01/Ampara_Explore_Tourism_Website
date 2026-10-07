@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { amparaAttractions, Attraction } from "@/data/amparaData";
 import { Star, MapPin, Clock, Plus, Check, ExternalLink, Compass } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FeaturedAttractionsProps {
   searchQuery: string;
@@ -22,6 +23,7 @@ export default function FeaturedAttractions({
   onTogglePlan,
   onSelectAttraction,
 }: FeaturedAttractionsProps) {
+  const { t } = useLanguage();
   
   // Filter attractions based on search, category, and radius
   const filteredAttractions = amparaAttractions.filter((item) => {
@@ -46,13 +48,13 @@ export default function FeaturedAttractions({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-4 border-b border-slate-200/80 gap-3">
         <div>
           <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Curated Destinations in Ampara</span>
+            <span>{t("destinationsTitle")}</span>
             <span className="bg-sky-100 text-[#0284c7] text-xs font-bold px-2.5 py-0.5 rounded-full">
               {filteredAttractions.length} Found
             </span>
           </h3>
           <p className="text-xs text-slate-500 mt-1">
-            Every site carefully measured from Ampara Clock Tower center within 25 km
+            {t("destinationsSubtitle")}
           </p>
         </div>
 
@@ -161,7 +163,7 @@ export default function FeaturedAttractions({
                       <a
                         href={`/attraction/${attraction.id}`}
                         className="text-xs font-bold text-slate-600 hover:text-[#0284c7] p-2 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
-                        title="View details"
+                        title={t("viewDetails")}
                       >
                         <ExternalLink className="w-4 h-4" />
                       </a>
@@ -177,12 +179,12 @@ export default function FeaturedAttractions({
                         {isAdded ? (
                           <>
                             <Check className="w-3.5 h-3.5" />
-                            <span>Added</span>
+                            <span>{t("addedBtn")}</span>
                           </>
                         ) : (
                           <>
                             <Plus className="w-3.5 h-3.5" />
-                            <span>Add</span>
+                            <span>{t("addBtn")}</span>
                           </>
                         )}
                       </button>
@@ -197,4 +199,5 @@ export default function FeaturedAttractions({
     </section>
   );
 }
+
 
