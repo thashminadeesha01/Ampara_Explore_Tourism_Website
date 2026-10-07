@@ -122,8 +122,7 @@ export default function MyVisitPlanPage() {
         "One of the sacred Solosmasthana sites blessed by Lord Buddha, featuring ancient archaeological ruins and a magnificent stupa restoration.",
       tip: "Best sunset lighting",
       tipType: "green",
-      image:
-        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+      image: "/images/deegawapi-stupa.jpg",
       transitBefore: {
         duration: "19 min drive",
         distance: "16.8 km",

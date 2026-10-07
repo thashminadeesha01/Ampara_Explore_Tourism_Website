@@ -82,7 +82,7 @@ function AttractionDetailContent() {
       reviews: "310+ reviews",
       title: "Gal Oya Elephant Corridor",
       desc: "A pristine jungle habitat celebrated for swimming herds, primordial riverbanks, and authentic safari expeditions.",
-      image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=600&q=80",
+      image: "/images/gal-oya-elephants.jpg",
     },
     {
       id: "deegawapi-stupa",
@@ -93,7 +93,7 @@ function AttractionDetailContent() {
       reviews: "420+ reviews",
       title: "Dighavapi Stupa Sanctuary",
       desc: "One of Sri Lanka's 16 sacred Buddhist Solosmasthana sites, dating back to the 3rd century BC with precious...",
-      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80",
+      image: "/images/deegawapi-stupa.jpg",
     },
     {
       id: "buddhangala-monastery",
@@ -260,7 +260,7 @@ function AttractionDetailContent() {
             {/* Thumb 2: Shoreline Wildlife */}
             <div className="relative h-28 sm:h-32 rounded-2xl overflow-hidden border border-slate-200/80 group">
               <Image
-                src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=600&q=80"
+                src="/images/gal-oya-elephants.jpg"
                 alt="Shoreline Wildlife"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"

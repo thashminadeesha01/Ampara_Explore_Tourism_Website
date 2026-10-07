@@ -81,8 +81,7 @@ const mapDestinations: MapPlace[] = [
     reviewsCount: 380,
     description:
       "Swimming elephant packs across tranquil lake channels, pristine rainforest canopy, and protected bird breeding grounds.",
-    image:
-      "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=600&q=80",
+    image: "/images/gal-oya-elephants.jpg",
     x: 62,
     y: 50,
     openHours: "06:00 AM - 06:00 PM",
@@ -100,8 +99,7 @@ const mapDestinations: MapPlace[] = [
     reviewsCount: 420,
     description:
       "Solosmasthana ancient pilgrimage sanctuary with historic archaeological relic chambers and majestic white stupa restoration.",
-    image:
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80",
+    image: "/images/deegawapi-stupa.jpg",
     x: 72,
     y: 58,
     openHours: "05:30 AM - 07:00 PM",
