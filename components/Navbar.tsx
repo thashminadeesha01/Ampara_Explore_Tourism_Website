@@ -31,6 +31,8 @@ export default function Navbar({
   const handleNavClick = (id: string) => {
     if (id === "plan") {
       window.location.href = "/plan";
+    } else if (id === "map") {
+      window.location.href = "/map";
     } else {
       setActiveTab(id);
       if (window.location.pathname !== "/") {
