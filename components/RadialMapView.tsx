@@ -24,14 +24,28 @@ export default function RadialMapView({ onSelectAttraction }: RadialMapViewProps
   };
 
   const angleMapping: Record<string, number> = {
-    "senanayake-samudraya": 230,
-    "gal-oya-national-park": 255,
-    "deegawapi-stupa": 120,
-    "buddhangala-monastery": 35,
-    "rajagala-archaeological-site": 310,
-    "ampara-peace-pagoda": 180,
+    "senanayake-samudraya": 235,
+    "kondawattuwan-lake": 340,
     "panama-kudumbigala": 150,
+    "gal-oya-national-park": 255,
+    "lahugala-kitulana-national-park": 205,
+    "kumana-national-park": 175,
+    "deegawapi-stupa": 115,
+    "buddhangala-monastery": 35,
+    "ampara-peace-pagoda": 185,
+    "okanda-devalaya": 165,
+    "rajagala-archaeological-site": 310,
     "muhudu-maha-viharaya": 110,
+    "neelagiriseya-archaeological-site": 195,
+    "arugam-bay-beach": 135,
+    "panama-beach-lagoon": 155,
+    "whisky-point-beach": 125,
+    "rambakan-oya-cascade": 295,
+    "karangawa-waterfalls": 20,
+    "kanchikudiaru-waterfalls": 225,
+    "magul-maha-viharaya": 215,
+    "ampara-handloom-village": 65,
+    "oluvil-lighthouse-harbour": 90,
   };
 
   return (
@@ -177,16 +191,25 @@ export default function RadialMapView({ onSelectAttraction }: RadialMapViewProps
                 ))}
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-slate-200">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
                 <div className="text-xs font-semibold text-slate-600">
                   Recommended duration: <strong className="text-slate-900">{activePin.duration}</strong>
                 </div>
-                <button
-                  onClick={() => onSelectAttraction(activePin)}
-                  className="bg-[#006699] hover:bg-[#0284c7] text-white text-xs font-bold px-4 py-2 rounded-full transition-colors cursor-pointer"
-                >
-                  Full Destination Info
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onSelectAttraction(activePin)}
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer"
+                  >
+                    Quick Preview
+                  </button>
+                  <a
+                    href={`/attraction/${activePin.id}`}
+                    className="bg-[#006699] hover:bg-[#0284c7] text-white text-xs font-bold px-3.5 py-1.5 rounded-full transition-colors"
+                  >
+                    Full Details →
+                  </a>
+                </div>
               </div>
             </div>
           ) : (

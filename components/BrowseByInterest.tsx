@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { interestCategories } from "@/data/amparaData";
+import { interestCategories, amparaAttractions } from "@/data/amparaData";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface BrowseByInterestProps {
@@ -14,6 +14,12 @@ export default function BrowseByInterest({
   onSelectCategory,
 }: BrowseByInterestProps) {
   const { t } = useLanguage();
+
+  const getCategoryCount = (title: string) => {
+    return amparaAttractions.filter(
+      (a) => a.category.toLowerCase() === title.toLowerCase()
+    ).length;
+  };
 
   const getCategoryTranslation = (title: string) => {
     const keyMap: Record<string, string> = {
@@ -139,7 +145,8 @@ export default function BrowseByInterest({
 
               {/* Place Count */}
               <span className="text-xs text-slate-500 font-medium">
-                {cat.count} places
+                {getCategoryCount(cat.title)}{" "}
+                {getCategoryCount(cat.title) === 1 ? "place" : "places"}
               </span>
             </button>
           );
@@ -148,14 +155,39 @@ export default function BrowseByInterest({
 
       {/* Active Filter Clear indicator if a category is picked */}
       {selectedCategory && (
-        <div className="mt-4 flex items-center justify-between bg-sky-50 border border-sky-200 rounded-xl px-4 py-2 text-xs text-sky-800 font-medium animate-fadeIn">
-          <span>Filtering attractions by: <strong className="font-bold text-[#0284c7]">{getCategoryTranslation(selectedCategory)}</strong></span>
-          <button
-            onClick={() => onSelectCategory(null)}
-            className="text-[#0284c7] hover:text-[#0369a1] font-bold underline cursor-pointer"
-          >
-            Show All Attractions
-          </button>
+        <div className="mt-4 flex flex-wrap items-center justify-between bg-sky-50 border border-sky-200 rounded-xl px-4 py-2.5 text-xs text-sky-800 font-medium animate-fadeIn gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#0284c7] animate-pulse" />
+            <span>
+              Filtering attractions by:{" "}
+              <strong className="font-bold text-[#0284c7]">
+                {getCategoryTranslation(selectedCategory)}
+              </strong>
+            </span>
+            <span className="bg-white text-[#0284c7] font-bold px-2.5 py-0.5 rounded-full border border-sky-200 text-[11px] shadow-2xs">
+              {getCategoryCount(selectedCategory)} destinations
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                const el = document.getElementById("destinations");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
+              className="text-[#0284c7] hover:text-[#0369a1] font-bold flex items-center gap-1 cursor-pointer bg-white px-2.5 py-1 rounded-lg border border-sky-200 shadow-2xs hover:shadow-xs transition-all"
+            >
+              <span>View Destinations</span>
+              <span>↓</span>
+            </button>
+            <button
+              onClick={() => onSelectCategory(null)}
+              className="text-slate-600 hover:text-slate-900 font-bold underline cursor-pointer"
+            >
+              Show All Attractions
+            </button>
+          </div>
         </div>
       )}
     </section>

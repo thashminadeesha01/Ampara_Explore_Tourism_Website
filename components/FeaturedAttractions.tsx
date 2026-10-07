@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { amparaAttractions, Attraction } from "@/data/amparaData";
 import { Star, MapPin, Clock, Plus, Check, ExternalLink, Compass } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -13,6 +14,7 @@ interface FeaturedAttractionsProps {
   visitPlan: Attraction[];
   onTogglePlan: (attraction: Attraction) => void;
   onSelectAttraction: (attraction: Attraction) => void;
+  onClearCategory?: () => void;
 }
 
 export default function FeaturedAttractions({
@@ -22,6 +24,7 @@ export default function FeaturedAttractions({
   visitPlan,
   onTogglePlan,
   onSelectAttraction,
+  onClearCategory,
 }: FeaturedAttractionsProps) {
   const { t } = useLanguage();
   
@@ -34,15 +37,19 @@ export default function FeaturedAttractions({
       item.highlights.some((h) => h.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesCategory =
-      !selectedCategory || item.category === selectedCategory;
+      !selectedCategory ||
+      item.category.toLowerCase() === selectedCategory.toLowerCase();
 
-    const matchesRadius = item.distanceKm <= selectedRadius;
+    // When browsing by category, ensure full 25km radius is covered so attractions aren't clipped
+    const matchesRadius = selectedCategory
+      ? item.distanceKm <= Math.max(selectedRadius, 25)
+      : item.distanceKm <= selectedRadius;
 
     return matchesSearch && matchesCategory && matchesRadius;
   });
 
   return (
-    <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="destinations" className="scroll-mt-24 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Subheader */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-4 border-b border-slate-200/80 gap-3">
@@ -72,6 +79,33 @@ export default function FeaturedAttractions({
         </div>
       </div>
 
+      {/* Active Category Filter Tag Banner */}
+      {selectedCategory && (
+        <div className="mb-6 flex flex-wrap items-center justify-between bg-sky-50/90 border border-sky-200/80 rounded-2xl px-5 py-3 text-xs gap-2 animate-fadeIn">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#0284c7] animate-pulse" />
+            <span className="text-slate-700">
+              Filtered by Category:{" "}
+              <strong className="text-[#0284c7] font-bold text-sm">
+                {selectedCategory}
+              </strong>
+            </span>
+            <span className="bg-[#0284c7] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full ml-1 shadow-2xs">
+              {filteredAttractions.length} destinations
+            </span>
+          </div>
+          {onClearCategory && (
+            <button
+              onClick={onClearCategory}
+              className="text-[#0284c7] hover:text-[#0369a1] font-bold hover:underline cursor-pointer flex items-center gap-1"
+            >
+              <span>Show All Attractions</span>
+              <span>✕</span>
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Grid of Attractions */}
       {filteredAttractions.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 shadow-xs">
@@ -80,6 +114,14 @@ export default function FeaturedAttractions({
           <p className="text-sm text-slate-500 mt-1 max-w-md mx-auto">
             Try expanding your search radius or clearing category filters to discover more hidden gems.
           </p>
+          {selectedCategory && onClearCategory && (
+            <button
+              onClick={onClearCategory}
+              className="mt-4 px-4 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-xs"
+            >
+              Show All Attractions
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -92,7 +134,11 @@ export default function FeaturedAttractions({
                 className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5"
               >
                 {/* Image Container */}
-                <div className="relative h-52 w-full overflow-hidden bg-slate-100">
+                <div
+                  onClick={() => onSelectAttraction(attraction)}
+                  className="relative h-52 w-full overflow-hidden bg-slate-100 cursor-pointer"
+                  title={`Quick preview ${attraction.name}`}
+                >
                   <Image
                     src={attraction.image}
                     alt={attraction.name}
@@ -129,12 +175,12 @@ export default function FeaturedAttractions({
                 {/* Content Card Body */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <a
+                    <Link
                       href={`/attraction/${attraction.id}`}
                       className="font-bold text-slate-900 text-base leading-snug hover:text-[#0284c7] transition-colors mb-2 line-clamp-1 block"
                     >
                       {attraction.name}
-                    </a>
+                    </Link>
                     <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
                       {attraction.description}
                     </p>
@@ -160,13 +206,13 @@ export default function FeaturedAttractions({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <a
+                      <Link
                         href={`/attraction/${attraction.id}`}
                         className="text-xs font-bold text-slate-600 hover:text-[#0284c7] p-2 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
                         title={t("viewDetails")}
                       >
                         <ExternalLink className="w-4 h-4" />
-                      </a>
+                      </Link>
 
                       <button
                         onClick={() => onTogglePlan(attraction)}

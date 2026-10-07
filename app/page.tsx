@@ -51,9 +51,20 @@ export default function Home() {
 
   const handleCategorySelect = (category: string | null) => {
     setSelectedCategory(category);
-    const element = document.getElementById("explore");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (category) {
+      setSearchQuery("");
+      setSelectedRadius(25);
+      setTimeout(() => {
+        const element = document.getElementById("destinations");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 50);
+    } else {
+      const element = document.getElementById("explore");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -107,6 +118,7 @@ export default function Home() {
         visitPlan={visitPlan}
         onTogglePlan={handleTogglePlan}
         onSelectAttraction={(attr) => setSelectedAttraction(attr)}
+        onClearCategory={() => handleCategorySelect(null)}
       />
 
       {/* 25km Radial Horizon Radar & Map Visualization */}
